@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	BookRegx       = regexp.MustCompile(`^/recipes/*$`)
-	BookRegxWithID = regexp.MustCompile(`^/recipes/([a-z0-9]+(?:-[a-z0-9]+)+)$`)
+	BookRegx       = regexp.MustCompile(`^/books/*$`)
+	BookRegxWithID = regexp.MustCompile(`^/books/([a-z0-9]+(?:-[a-z0-9]+)+)$`)
 )
 
 func (b *BooksHandler) CreateBook(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,7 @@ func (b *BooksHandler) GetBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	recipe, err := b.store.Get(matches[1])
+	book, err := b.store.Get(matches[1])
 	if err != nil {
 		if err == ErrNotFound {
 			NotFoundHandler(w, r)
@@ -64,7 +64,7 @@ func (b *BooksHandler) GetBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonBytes, err := json.Marshal(recipe)
+	jsonBytes, err := json.Marshal(book)
 	if err != nil {
 		InternalServerErrorHandler(w, r)
 		return
@@ -112,6 +112,12 @@ func (b *BooksHandler) DeleteBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+type homeHandler struct{}
+
+func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Página inicial"))
 }
 
 func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {

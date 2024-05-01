@@ -6,7 +6,7 @@ type bookStorage interface {
 	Create(name string, book Book) error
 	Get(name string) (Book, error)
 	List() (map[string]Book, error)
-	Update(name string, recipe Book) error
+	Update(name string, book Book) error
 	Delete(name string) error
 }
 

@@ -12,6 +12,7 @@ func routes() *http.ServeMux {
 	store := NewMemStore()
 	booksHandler := NewBooksHandler(store)
 
+	mux.Handle("/", &homeHandler{})
 	mux.Handle("api/v1/books", booksHandler)
 	mux.Handle("api/v1/books/", booksHandler)
 
