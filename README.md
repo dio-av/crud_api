@@ -18,5 +18,13 @@ com o comando abaixo a aplicação será iniciada.
 go run .
 ```
 
+## Docker 
+
+Para construir a aplicação utilizando docker basta na raíz do projeto executar o comando
+
+```
+docker build -t crud_api . 
+```
+
 
 
